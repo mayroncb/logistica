@@ -5,7 +5,7 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
 
     </head>
-    
+
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
             <a class="navbar-brand" href="#">Logistica</a>
@@ -38,9 +38,59 @@
         <main role="main" class="container">
 
             <div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> 
-                    All you get is this text and a mostly barebones HTML document.</p>
+
+                <h2>Últimos Pedidos</h2>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="input-group mb-3 col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Cliente</span>
+                                </div>
+                                <input type="text" class="form-control" >
+                            </div>
+                        
+
+                        <div class="form-group col">
+                            <select class="form-control">
+                                <option>-- Selecione o Status --</option>
+                                <option>Emitido</option>
+                                <option>Finalizado</option>
+                                <option>Cancelado</option>
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <button type="button" class="btn btn-primary">Filtrar</button>
+                        </div>
+                            
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Num Pedido</th>
+                            <th>Cliente</th> 
+                            <th>Data do pedido</th>
+                            <th>Status</th>     
+                            <th>Data Atualização</th>    
+                            <th>Usuário Atualização</th>     
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1010</td>
+                            <td>ZXC</td>
+                            <td>10/10/2018</td>
+                            <td>Emitido</td>
+                            <td>10/10/2011 12:30:03</td>
+                            <td>Eduardo</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </main><!-- /.container -->    
