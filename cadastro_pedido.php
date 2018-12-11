@@ -1,130 +1,113 @@
 <?php
+$msg = (isset($_GET['msg'])) ? $_GET['msg'] : "";
 
-    $msg = (isset($_GET['msg']))? $_GET['msg'] : "";
+$editar = ($_SERVER['SCRIPT_NAME'] == '/controller/pedido_editar.php') ? true : FALSE;
 
+require 'header.php';
+require 'menu.php';
 ?>
 
-<!DOCTYPE html>
+<main role="main" class="container">
 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Sistema de logistica</title>
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
+    <div class="starter-template">
 
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark static-top">
-            <a class="navbar-brand" href="#">Logistica</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                    data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" 
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <?php if ($editar == true): ?>
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cadastrar Novo</a>
-                    </li>
+            <form class="form-horizontal" action="/controller/pedido_salvar.php" method="post">
+        <?php else: ?>
+            <form class="form-horizontal" action="/controller/pedido_cadastrar.php" method="post">
+        <?php endif; ?>
 
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+                <fieldset class="col-6 offset-3">
 
-        <main role="main" class="container">
+                    <!-- Form Name -->
+                    <?php
+                    if ($editar == true) {
+                        echo "<legend>Editar Pedido</legend>";
+                        echo '<input type="hidden" value="'.$id.'" name="id" />';
+                    } else {
+                        echo "<legend>Cadastro de Pedido</legend>";
+                    }
+                    ?>
+                    <?php if ($msg != ''): ?>
 
-            <div class="starter-template">
-
-
-                <form class="form-horizontal" action="controller/pedido_cadastrar.php" method="post">
-
-
-                    <fieldset class="col-6 offset-3">
-
-                        <!-- Form Name -->
-                        <legend>Cadastro de Pedido</legend>
-                        
-                            <?php 
-                            
-                            if ($msg != ''): ?>
-                                
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo $msg; ?>
-                            </div>
-                            
-                            <?php endif; ?>
-                        
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class=" control-label" for="num_pedido">Número do Pedido</label>  
-                            <div class="">
-                                <input id="num_pedido" name="num_pedido" type="text" placeholder="" class="form-control input-md">
-
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                        <?php echo $msg; ?>
                         </div>
 
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="control-label" for="data_pedido">Data do Pedido</label>  
-                            <div class="">
-                                <input id="data_pedido" name="data_pedido" type="date" placeholder="" class="form-control input-md">
+                    <?php endif; ?>
 
-                            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="num_pedido">Número do Pedido</label>  
+                        <div class="">
+                            <input id="num_pedido" name="num_pedido" type="text" placeholder="" value="<?php echo $num_pedido; ?>" class="form-control input-md">
+
                         </div>
+                    </div>
 
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class=" control-label" for="cliente">Cliente</label>  
-                            <div class="">
-                                <input id="cliente" name="cliente" type="text" placeholder="" class="form-control input-md">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="control-label" for="data_pedido">Data do Pedido</label>  
+                        <div class="">
+                            <input id="data_pedido" name="data_pedido" type="date" placeholder="" value="<?php echo $data_pedido; ?>"class="form-control input-md">
 
-                            </div>
                         </div>
+                    </div>
 
-                        <!-- Select Basic -->
-                        <div class="form-group">
-                            <label class=" control-label" for="status">Status</label>
-                            <div class="">
-                                <select id="status" name="status" class="form-control">
-                                    <option value="Aberto">Aberto</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                    <option value="Emitido">Emitido</option>
-                                    <option value="Entregue">Entregue</option>
-                                </select>
-                            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="cliente">Cliente</label>  
+                        <div class="">
+                            <input id="cliente" name="cliente" type="text" placeholder="" value="<?php echo $cliente; ?>"class="form-control input-md">
+
                         </div>
+                    </div>
 
-                        <!-- Textarea -->
-                        <div class="form-group">
-                            <label class=" control-label" for="observacoes">Observações</label>
-                            <div class="">                     
-                                <textarea class="form-control" id="observacoes" name="observacoes"></textarea>
-                            </div>
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class=" control-label" for="status">Status</label>
+                        <div class="">
+                            <?php
+                                $vetor_status = array("Aberto", "Cancelado", "Emitido", "Entregue", "Novo");
+                            ?>
+                            <select id="status" name="status" class="form-control">
+                                    <?php foreach ($vetor_status as $item): ?>
+                                    
+                                    <?php if ($status == $item): ?>
+                                        <option value="<?php echo $item?>" selected="true"><?php echo $item?> </option>
+                                    <?php else: ?>
+                                        <option value="<?php echo $item?>"><?php echo $item?> </option>
+                                    <?php endif; ?>
+                                    <?php endforeach;?>
+                            </select>
                         </div>
+                    </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class=" control-label" for="enviar"></label>
-                            <div class="">
-                                <button id="enviar" name="enviar" class="btn btn-success">Enviar</button>
-                            </div>
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class=" control-label" for="observacoes">Observações</label>
+                        <div class="">                     
+                            <textarea class="form-control" id="observacoes" name="observacoes"></textarea>
                         </div>
+                    </div>
 
-                    </fieldset>
-                </form>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class=" control-label" for="enviar"></label>
+                        <div class="">
+                            <button id="enviar" name="enviar" class="btn btn-success">Enviar</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
 
 
-            </div>
+    </div>
 
-        </main><!-- /.container -->
+</main><!-- /.container -->
 
-    </body>
-</html>
+<?php
+require 'footer.php';
+?>
