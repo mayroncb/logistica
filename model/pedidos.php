@@ -1,15 +1,6 @@
 <?php
 
-function conectar() {
-    $user = "root";
-    $senha = "elaborata";
-
-    $dsn = 'mysql:host=localhost;dbname=pedidos;port=3306';
-
-    $pdo = new PDO($dsn, $user, $senha);
-
-    return $pdo;
-}
+require 'db.php';
 
 /**
  * Lista todos os pedidos pelo filtro aplicado

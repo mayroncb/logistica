@@ -1,11 +1,8 @@
 <?php
-require './model/pedidos.php';
+    require './model/pedidos.php';
 
-$msg = (isset($_GET['msg'])) ? $_GET['msg'] : '';
-?>
+    $msg = (isset($_GET['msg'])) ? $_GET['msg'] : '';
 
-
-<?php
     require 'header.php';
     require 'menu.php';
 ?>
